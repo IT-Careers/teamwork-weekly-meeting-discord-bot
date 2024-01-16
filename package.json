@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2"
+  },
+  "scripts": {
+    "start": "node --env-file=.env bot.js"
+  },
+  "type": "module"
+}
