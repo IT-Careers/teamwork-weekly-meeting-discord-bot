@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import cron from "node-cron";
+import * as fs from 'fs';
 
 const DISCORD_API_ROOT_URL = 'https://discord.com/api';
 
@@ -26,7 +27,15 @@ Object.keys(DISCORD_BOT_CHANNELS_CONFIGURATION).forEach(teamKey => {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
+                const message = `[${new Date().toISOString()}] Logged teacher message for Team ${teamKey}.`;
+                fs.appendFile('log.txt', message + '\r\n', (err) => {
+                    if(err) {
+                        console.log('Failed to create a log... ' + err);
+                        return;
+                    }
+
+                    console.log('[' + new Date().toISOString() + '] ' + 'Log saved successfully.' );
+                })
             }).catch(err => console.log(err));
     });
 
@@ -43,7 +52,15 @@ Object.keys(DISCORD_BOT_CHANNELS_CONFIGURATION).forEach(teamKey => {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
+                const message = `[${new Date().toISOString()}] Logged student message for Team ${teamKey}.`;
+                fs.appendFile('log.txt', message + '\r\n', (err) => {
+                    if(err) {
+                        console.log('Failed to create a log... ' + err);
+                        return;
+                    }
+
+                    console.log('[' + new Date().toISOString() + '] ' + 'Log saved successfully.' );
+                })
             }).catch(err => console.log(err));
     });
 });
